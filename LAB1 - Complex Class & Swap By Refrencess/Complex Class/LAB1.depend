@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1671481301 source:c:\users\moham\iclouddrive\iti iot intake 43 materials\c++\lab1\main.cpp
+	<iostream>
+	<math.h>
+
