@@ -81,7 +81,7 @@ cout<<"This is the overloaded constructor with 2 arrgum"<<endl;
 
 }
 
-//destructor can have argumbertn or return
+//destructor can not have an argument or a return
 ~Complex(){
 
 cout<<"this is object desructor"<<endl;
