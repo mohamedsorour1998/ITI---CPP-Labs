@@ -76,11 +76,11 @@ public:
     }
     // friend prottype
     //friend void viewContent( Stack x ); ////Call by Value
-    // friend void viewContent( Stack &x ); //Call by Reference
-    friend void viewContent( Stack x ); ////Call by Value + copy constructor
+     // friend void viewContent( Stack &x ); //Call by Reference
+   friend void viewContent( Stack x ); ////Call by Value + copy constructor
 
     //copy constructor
-    Stack (Stack &z)  // passing 2 parametars (this : new one , z : old)
+    Stack (Stack &z)  // passing 2 parametars (this=new=x=caller , z==old=&z=s1) , overload for copy so it would not be BW., &z is Reference to Stack s1
     {
         tos = z.tos;
         sos =z.sos;
@@ -96,15 +96,15 @@ public:
 //add viewContent function copy from s to x
 
 //call by value.
-/*void viewContent( Stack x ){
+/*
+void viewContent( Stack x ){ //this=new=x , Stack x is new object w/o constructor but by BW, and have a destructor.
 int t = x.tos;
-counter++;
 while ( t !=0){
 cout<< x.st[--t]<< endl;
 cout << "viewContent function call by value, this is stack object number: " <<Stack::counter<< endl;
 }
-}*/
-
+}
+*/
 
 //Call by Reference
 /*void viewContent( Stack &x ){
@@ -113,11 +113,12 @@ while ( t !=0){
 cout<< x.st[--t]<< endl;
 cout << "viewContent function call by Reference, this is stack object number: " <<Stack::counter<< endl;
 }
-}*/
-
+}
+*/
 
 //call by value + copy constructor
-void viewContent( Stack x )
+
+void viewContent( Stack x ) //stack x will call the copy constructor
 {
     int t = x.tos;
     while ( t !=0)
