@@ -2,251 +2,146 @@
 
 using namespace std;
 //drawing a rectangular & circle & line using points in a picture
-// point
-class Point
-{
-    int x;
-    int y;
+
+class GeoShape{   //GeoShape will be parent to Circle, Rect, Triangle, and ansastor for square
+
+protected:
+float dim1;
+float dim2;
 
 public:
-    Point()
-    {
-        int x=0;
-        int y=0;
-    }
-    Point(int m, int n)
-    {
-// this = caller
-        x=m;
-        y=n;
-    }
-    void setX (int m)
-    {
-// this = caller
-        x = m;
-    }
-    void setY (int n)
-    {
-        y = n;
-
-
-    }
-    int getX()
-    {
-        return x;
-    }
-    int getY()
-    {
-        return y;
-
-    }
-};
-class Shape{   //shape will be parent to Circle, Rect, Line
-
-int color;
-public:
-    Shape(){
-    color = 1;
+    GeoShape(){
+    dim1 = dim2 =0;
     cout<<"in parent constructor"<<endl;
 
     }
-    Shape(int w){
-    color = w;
+    GeoShape(float w){
+   dim1 = dim2 = w;
     cout<<"in parent constructor with argument"<<endl;
 
     }
-    ~Shape(){
-    cout<<"in parent destructor with argument"<<endl;
-    }
-    void setColor (int a){
-        color = a;
-    }
-     getColor (){
-        return color;
-    }
-    //need to #include <graphics.h> lib to run
-    /*
-    void draw (){
-        int i;
-        for(i=0; i<cNum; i++)
-        {
-            pCircles[i].draw();
-        }
+        GeoShape(float x, float y){
+   dim1 = x;
+   dim2 = y;
+    cout<<"in parent constructor with 2 argument"<<endl;
 
-        for(i=0; i<rNum; i++)
-        {
-            pRects[i].draw();
-        }
-
-        for(i=0; i<lNum; i++)
-        {
-            pLines[i].draw();
-        }
     }
-*/
+
+    void setDim1 (int a){
+        dim1 = a;
+    }
+    float getDim1 (){
+        return dim1;
+    }
+    void setDim2 (int a){
+        dim2 = a;
+    }
+    float getDim2 (){
+        return dim2;
+    }
 };
-class Rect: public Shape
+class Rect:public GeoShape
 {
-    Point ul;
-    Point lr;
 
 public:
-    Rect() :Shape(), ul(), lr()
-    {
-        cout<<"At Rect Const"<<endl;
-    }
-
-    Rect(int x1, int y1, int x2, int y2, int w) :Shape(w), ul(x1, y1), lr(x2, y2)
-    {
-        cout<<"At Rect Const"<<endl;
-    }
-
-//need to #include <graphics.h> lib to run
-    /*
-    void draw(){
-        rectangle(ul.getX(), ul.getY(), lr.getX(), lr.getY());
-    }
-    */
-
-};
-class Circle: public Shape
-{
-    Point center;
-    int radius;
-
-public:
-    Circle() :Shape(), center()
-    {
-        radius =0;
-        cout<<"At Rect Circle"<<endl;
-    }
-
-    Circle(int m, int n, int r, int w) : Shape(w), center(m, n)
-    {
-        radius =r;
-        cout<<"At Rect Circle"<<endl;
-    }
-
-//need to #include <graphics.h> lib to run
-    /*
-    void draw(){
-        circle(center.getX(), center.getY(), radius);
-    }
-    */
-};
-class Line:public Shape
-{
-    Point start;
-    Point end;
-public:
-   Line():Shape(), start(), end()
+   Rect():GeoShape()
      {
-        cout<<"At line Const"<<endl;
+        cout<<"At Rect Const"<<endl;
     }
 
-   Line(int xl, int yl, int x2, int y2, int w) : Shape(w), start(xl,yl), end(x2,y2)
+    Rect(float b, float h):GeoShape(b,h)
     {
-        cout<<"At line Const"<<endl;
+        cout<<"At Rect Const"<<endl;
     }
-//need to #include <graphics.h> lib to run
-    /*
-    void draw(){
-        line(start.getX(), start.getY(), end.getX(), end.getY());
+
+     float calculateArea(){
+return  dim1 * dim2;
     }
-    */
+
 };
-class Picture   //agrigation
+class Circle: private GeoShape
 {
-    int cNum;
-    int rNum;
-    int lNum;
-
-    Circle * pCircles;
-    Rect * pRects;
-    Line * pLines;
-
 public:
-//default constructor
-    Picture()
+    Circle() :GeoShape()
     {
-        cNum = 0;
-        rNum = 0;
-        lNum = 0;
-
-        pCircles = NULL;
-        pRects= NULL;
-        pLines= NULL;
-    }
-//arguments constructor
-    Picture(int cna, int rn, int cn,Circle *pC, Rect *pR, Line *pL)
-    {
-        cNum = cna;
-        rNum = rn;
-        lNum = cn;
-
-        pCircles = pC;
-        pRects= pR;
-        pLines= pL;
-    }
-// set functions to set values that is not public
-    void setLines(int ln, Line * lptr)
-    {
-        lNum = ln;
-        pLines= lptr;
-
-    }
-    void setRects(int rn, Rect *rptr)
-    {
-        rNum = rn;
-        pRects = rptr;
+        cout<<"At Circle Const"<<endl;
     }
 
-    void setCircles(int cn, Circle *cptr)
+    Circle(int m) : GeoShape(m)
     {
-        cNum = cn;
-        pCircles = cptr;
+        cout<<"At Circle Const"<<endl;
     }
-// paint function
-//need to #include <graphics.h> lib to run
-    /*
-    void paint()
+
+      void setRadius (int a){
+        dim1 = dim2 =a;
+    }
+    float getRadius (){
+        return dim1;
+    }
+         float calculateArea(){
+return  dim1 * dim2 * 22/7;
+    }
+
+};
+class Triangle:public GeoShape
+{
+public:
+   Triangle():GeoShape()
+     {
+        cout<<"At Triangle Const"<<endl;
+    }
+
+    Triangle(float b, float h):GeoShape(b,h)
     {
-        int i;
-        for(i=0; i<cNum; i++)
-        {
-            pCircles[i].draw();
-        }
-
-        for(i=0; i<rNum; i++)
-        {
-            pRects[i].draw();
-        }
-
-        for(i=0; i<lNum; i++)
-        {
-            pLines[i].draw();
-        }
+        cout<<"At Triangle Const"<<endl;
     }
-    */
 
+    float calculateArea(){
+return 0.5 * dim1 * dim2;
+    }
 
+};
+class Square: private Rect
+{
+public:
+    Square() :Rect()
+    {
+        cout<<"At Square Const"<<endl;
+    }
 
+    Square(int m) : Rect(m,m)
+    {
+        cout<<"At Square Const"<<endl;
+    }
 
+      void setSquareDim (int a){
+        dim1 = dim2 =a;
+    }
+    float getSquareDim (){
+        return dim1;
+    }
+         float calculateArea(){
+return  Rect::calculateArea();
+    }
 
 };
 
 int main()
 {
-    Picture myPic;
+    GeoShape shape(5,6);
 
-    Circle cArr[3]= {Circle(50, 50, 50, 1), Circle(200, 100, 100, 1), Circle(420, 50, 30, 1)};
-    Rect rArr[2]= {Rect(30, 40, 170, 100, 2), Rect(420, 50, 500, 300, 2)};
-    Line lArr[2]= {Line(420, 50, 300, 300, 3), Line(40, 500, 500, 400, 3)};
+Circle c1;
+       // cout<<c1.getDim1()<<endl;
+       //c1.setDim1(5);
+       // cout<<<<endl;
+        cout<<c1.getRadius()<<endl;
 
-    myPic.setCircles(3, cArr);
-    myPic.setRects(3, rArr);
-    myPic.setLines(3, lArr);
-    //need to #include <graphics.h> lib to run
-   // myPic.paint();
+Square s1;
+       // cout<<s1.getDim1()<<endl;
+       // cout<<s1.setDim1(5)<<endl;
+        s1.setSquareDim(5);
+
+
+
     return 0;
 }
