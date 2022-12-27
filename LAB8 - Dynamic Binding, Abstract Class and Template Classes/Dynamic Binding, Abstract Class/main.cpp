@@ -51,7 +51,7 @@ class AbstractGeoShape{   //AbstractGeoShape will be an abstract class e.g.
     //when inheritance from abstract, the child must implement all the pure virtual functions of his base
 
 
-    virtual float calculateArea() {}
+    virtual float calculateArea();
 
 };
 class Rect:public GeoShape
